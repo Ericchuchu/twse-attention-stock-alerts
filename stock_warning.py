@@ -21,8 +21,9 @@ import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-#telegram bot
-API_key="6487255122:AAGe9Vx4dfGns00BP47ZUzpRyQES-QoLALs"
+#telegram bot (credentials come from the environment, see .env.example)
+API_key=os.environ["TELEGRAM_BOT_TOKEN"]
+CHAT_ID=int(os.environ["TELEGRAM_CHAT_ID"])
 bot=telebot.TeleBot(API_key)
 next_month='0'
 '''
@@ -374,7 +375,7 @@ def main(past_stock_number):
                 revenue_grow_up_percentage_str = "{:.2f}".format(revenue_grow_up_percentage)
                 eps_grow_up_percentage_str = "{:.2f}".format(eps_grow_up_percentage)
                 message=revenue['股票']+"\n最近一月營收(千元):"+revenue['最近一月營收(千元)'].replace(',', '')+"\n最近一季平均月營收(千元):"+revenue['最近一季平均月營收(千元)']+"\n成長:"+revenue_grow_up_percentage_str+"%"+"\n最近一月盈餘(元):"+eps['最近一月盈餘(元)']+"\n最近一季平均月盈餘(元):"+eps['最近一季平均月盈餘(元)']+"\n成長:"+eps_grow_up_percentage_str+"%"
-                bot.send_message(-1001970783350,message)
+                bot.send_message(CHAT_ID,message)
             except Exception as e:
                 print(f"sending message error : {e}")
                 continue
@@ -384,9 +385,6 @@ def main(past_stock_number):
     return past_stock_number
  
 if __name__ == "__main__":
-    #telegram bot
-    API_key="6487255122:AAGe9Vx4dfGns00BP47ZUzpRyQES-QoLALs"
-    bot=telebot.TeleBot(API_key)
     next_month='0'
     past_stock_number = []
     

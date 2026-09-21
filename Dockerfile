@@ -32,4 +32,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 
 # 運行應用
-CMD ["python3", "main.py"]
+CMD ["python3", "stock_warning.py"]
